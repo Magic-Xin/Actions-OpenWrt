@@ -18,6 +18,7 @@
 [![PRs Welcome][3]][4]
 [![Issue Welcome][5]][6]
 [![AutoBuild][12]][13]
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FMagic-Xin%2FActions-OpenWrt.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FMagic-Xin%2FActions-OpenWrt?ref=badge_shield)
 
 <a href="https://t.me/opwrts" target="_blank">Telegram</a>
 ### 特色:
@@ -143,3 +144,7 @@ Build OpenWrt using GitHub Actions
 <br />
 <img src="https://github.com/garypang13/luci-theme-edge/raw/master/Screenshots/6.png" width="550" />
 ![](https://github.com/garypang13/luci-theme-edge/raw/master/Screenshots/7.png)
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FMagic-Xin%2FActions-OpenWrt.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FMagic-Xin%2FActions-OpenWrt?ref=badge_large)

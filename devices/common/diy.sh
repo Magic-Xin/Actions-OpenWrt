@@ -1,7 +1,7 @@
 #!/bin/bash
 #=================================================
 rm -Rf feeds/custom/diy
-rm -Rf feeds/packages/net/{smartdns,mwan3,miniupnpd,aria2,https-dns-proxy,shadowsocks-libev,frp,openvpn} feeds/luci/applications/luci-app-{dockerman,smartdns,frpc,frps}
+rm -Rf feeds/packages/net/{smartdns,mwan3,miniupnpd,aria2,https-dns-proxy,shadowsocks-libev,frp,openvpn} feeds/luci/applications/luci-app-{dockerman,smartdns,frpc,frps,https-dns-proxy}
 rm -Rf feeds/packages/utils/cgroupfs-mount
 ./scripts/feeds update luci packages custom
 ./scripts/feeds install -a
@@ -32,6 +32,7 @@ wget -O package/network/config/firewall/patches/fullconenat.patch https://github
 sed -i "s/+nginx\( \|$\)/+nginx-ssl\1/g"  package/*/*/*/Makefile
 sed -i 's/+python\( \|$\)/+python3/g' package/*/*/*/Makefile
 sed -i 's?../../lang?$(TOPDIR)/feeds/packages/lang?g' package/feeds/custom/*/Makefile
+sed -i 's?\.\./\.\.?$(TOPDIR)/feeds/packages?g' package/feeds/packages/*/Makefile
 sed -i 's?package.mk?package.mk\ninclude $(INCLUDE_DIR)/package_lang.mk?g' package/*/custom/luci-app-*/Makefile
 sed -i 's?+pdnsd-alt??' package/feeds/custom/luci-app-turboacc/Makefile
 sed -i 's/PKG_BUILD_DIR:=/PKG_BUILD_DIR?=/g' feeds/luci/luci.mk

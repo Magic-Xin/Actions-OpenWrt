@@ -9,10 +9,11 @@ sed -i 's/Os/O2/g' include/target.mk
 rm -Rf tools/upx && svn co https://github.com/coolsnowwolf/lede/trunk/tools/upx tools/upx
 rm -Rf tools/ucl && svn co https://github.com/coolsnowwolf/lede/trunk/tools/ucl tools/ucl
 sed -i 's?zstd$?zstd ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile?g' tools/Makefile
-rm -Rf  target/linux include package/kernel
+rm -Rf  target/linux include package/kernel package/boot
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/target/linux target/linux
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/include
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel package/kernel
+svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/boot package/boot
 sed -i "s/'class': 'table'/'class': 'table memory'/g" package/*/*/luci-mod-status/htdocs/luci-static/resources/view/status/include/20_memory.js
 sed -i 's/+acme\( \|$\)/+acme +acme-dnsapi\1/g' package/*/*/luci-app-acme/Makefile
 sed -i '$a /etc/sysupgrade.conf' package/base-files/files/lib/upgrade/keep.d/base-files-essential

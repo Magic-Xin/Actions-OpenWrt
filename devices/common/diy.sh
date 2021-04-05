@@ -55,7 +55,6 @@ if [ -f sdk.tar.xz ]; then
 	sed -i 's,$(STAGING_DIR_HOST)/bin/upx,upx,' package/feeds/custom/*/Makefile
 	mkdir sdk
 	tar -xJf sdk.tar.xz -C sdk
-	cp -rf sdk/*/build_dir ./
 	cp -rf sdk/*/staging_dir/* ./staging_dir/
 	rm -rf sdk.tar.xz sdk
 	sed -i '/\(tools\|toolchain\)\/Makefile/d' Makefile

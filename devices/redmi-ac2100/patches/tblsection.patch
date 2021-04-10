@@ -15,5 +15,9 @@
 +			<%- i=i+1 -%>
 +			<%- end -%>
  		<%- end -%>
-
+ 
+<<<<<<< HEAD
  		<%- if isempty then -%>
+=======
+ 		<%- if isempty then -%>
+>>>>>>> 99abacf6a6a933ac60209b3a8ad98f0202cfef5c

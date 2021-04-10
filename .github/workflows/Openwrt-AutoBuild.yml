@@ -69,7 +69,7 @@ jobs:
         -H "Accept: application/vnd.github.everest-preview+json" \
         -H "Authorization: token ${{ secrets.REPO_TOKEN }}" \
         --data '{"event_type": "update"}'
-        sleep 15
+        sleep 12
         fi
 
     - name: Initialization environment

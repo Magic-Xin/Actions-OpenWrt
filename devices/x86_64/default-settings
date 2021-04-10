@@ -1,4 +1,3 @@
-
 test $version -lt 2 && {
 	uci del turboacc.config.sw_flow
 	uci commit turboacc
@@ -6,10 +5,8 @@ test $version -lt 2 && {
 	uci set system.@system[0].zram_comp_algo='lz4'
 	uci commit system
 
-	uci set snmpd.general.enabled="0"
-	uci commit snmpd
-
-	version=2
+uci set snmpd.general.enabled="0"
+uci commit snmpd
 }
 
 uci set base_config.@status[0].version=$version

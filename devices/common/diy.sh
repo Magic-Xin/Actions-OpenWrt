@@ -55,8 +55,6 @@ sed -i '$a cgi-timeout = 300' package/feeds/packages/uwsgi/files-luci-support/lu
 
 patch -Rp1 < devices/common/patches/k2p.revert.patch
 
-sed -i 's/kmod-mt7615d_dbdc/kmod-mt7615d luci-app-mtwifi/g' target/linux/ramips/image/mt7621.mk
-
 if [ -f sdk.tar.xz ]; then
 	sed -i 's,$(STAGING_DIR_HOST)/bin/upx,upx,' package/feeds/custom/*/Makefile
 	mkdir sdk

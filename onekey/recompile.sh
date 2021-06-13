@@ -19,7 +19,7 @@ echo
 clear
 
 rm -Rf openwrt/common openwrt/files openwrt/devices
-svn co https://github.com/garypang13/Actions-OpenWrt/trunk/devices openwrt/devices
+svn co https://github.com/garypang13/OpenWrt/trunk/devices openwrt/devices
 cd openwrt
 
 git checkout .
@@ -30,11 +30,7 @@ git pull
  } || { firmware=$(grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/')
  }
 
-if [ $firmware == "xiaomi_redmi-router-ac2100" ]; then
-	firmware="redmi-ac2100"
-elif [ $firmware == "phicomm_k2p" ]; then
-	firmware="phicomm-k2p"
-elif [ $firmware == "x86_64" ]; then
+if [ $firmware == "x86_64" ]; then
 	firmware="x86_64"
 elif [ $firmware == "friendlyarm_nanopi-r2s" ]; then
 	firmware="nanopi-r2s"
@@ -78,10 +74,10 @@ if [ -f "devices/$firmware/default-settings" ]; then
 	cat devices/$firmware/default-settings >> package/*/*/default-settings/files/uci.defaults
 fi
 if [ -n "$(ls -A "devices/common/patches" 2>/dev/null)" ]; then
-          find "devices/common/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -p1 --forward"
+          find "devices/common/patches" -type f -name '*.patch' ! -name '*.revert.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -p1 --forward"
 fi
 if [ -n "$(ls -A "devices/$firmware/patches" 2>/dev/null)" ]; then
-          find "devices/$firmware/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -p1 --forward"
+          find "devices/$firmware/patches" -type f -name '*.patch' ! -name '*.revert.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -p1 --forward"
 fi
 [ -f ".config.bak" ] && cp -f .config.bak .config || {
 cp -f devices/common/.config .config

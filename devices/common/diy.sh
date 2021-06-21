@@ -6,10 +6,10 @@ rm -Rf feeds/packages/utils/cgroupfs-mount
 ./scripts/feeds update luci packages custom
 ./scripts/feeds install -a
 sed -i 's/Os/O2/g' include/target.mk
-rm -rf target
-svn co https://github.com/openwrt/openwrt/trunk/target
-rm -rf package/kernel
-svn co https://github.com/openwrt/openwrt/trunk/package/kernel package/kernel
+rm -rf package/{base-files,network,system}
+svn co https://github.com/openwrt/openwrt/branches/openwrt-21.02/package/base-files package/base-files
+svn co https://github.com/openwrt/openwrt/branches/openwrt-21.02/package/network package/network
+svn co https://github.com/openwrt/openwrt/branches/openwrt-21.02/package/system package/system
 rm -Rf tools/upx && svn co https://github.com/coolsnowwolf/lede/trunk/tools/upx tools/upx
 rm -Rf tools/ucl && svn co https://github.com/coolsnowwolf/lede/trunk/tools/ucl tools/ucl
 sed -i 's?zstd$?zstd ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile?g' tools/Makefile

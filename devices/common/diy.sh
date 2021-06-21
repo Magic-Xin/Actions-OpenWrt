@@ -10,6 +10,7 @@ rm -rf package/{base-files,network,system}
 svn co https://github.com/openwrt/openwrt/branches/openwrt-21.02/package/base-files package/base-files
 svn co https://github.com/openwrt/openwrt/branches/openwrt-21.02/package/network package/network
 svn co https://github.com/openwrt/openwrt/branches/openwrt-21.02/package/system package/system
+find package/*/ -maxdepth 1 -name ".svn" | xargs -i rm -rf {}
 rm -Rf tools/upx && svn co https://github.com/coolsnowwolf/lede/trunk/tools/upx tools/upx
 rm -Rf tools/ucl && svn co https://github.com/coolsnowwolf/lede/trunk/tools/ucl tools/ucl
 sed -i 's?zstd$?zstd ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile?g' tools/Makefile

@@ -5,20 +5,23 @@ rm -Rf feeds/packages/net/{smartdns,mwan3,miniupnpd,aria2,nft-qos,https-dns-prox
 rm -Rf feeds/packages/utils/cgroupfs-mount
 ./scripts/feeds update luci packages custom
 ./scripts/feeds install -a
-sed -i 's/Os/O2/g' include/target.mk
+sed -i 's/Os/O2/g' include/target.mk include/kernel-version.mk
+rm -rf target/linux package/kernel include/kernel-version.mk
+svn co https://github.com/openwrt/openwrt/trunk/target/linux target/linux
+svn co https://github.com/openwrt/openwrt/trunk/package/kernel package/kernel
+wget -O include/kernel-version.mk https://raw.githubusercontent.com/openwrt/openwrt/master/include/kernel-version.mk
+find package/*/ -maxdepth 1 -name ".svn" | xargs -i rm -rf {}
 rm -Rf tools/upx && svn co https://github.com/coolsnowwolf/lede/trunk/tools/upx tools/upx
 rm -Rf tools/ucl && svn co https://github.com/coolsnowwolf/lede/trunk/tools/ucl tools/ucl
 sed -i 's?zstd$?zstd ucl upx\n$(curdir)/upx/compile := $(curdir)/ucl/compile?g' tools/Makefile
-rm -rf package/network/services/ppp
-svn co https://github.com/openwrt/openwrt/trunk/package/network/services/ppp package/network/services/ppp
-echo -e "\q" | svn co https://github.com/immortalwrt/immortalwrt/branches/master/target/linux/generic/hack-5.4 target/linux/generic/hack-5.4
-wget -O target/linux/generic/pending-5.4/601-add-kernel-imq-support.patch https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/generic/pending-5.4/601-add-kernel-imq-support.patch
+echo -e "\q" | svn co https://github.com/immortalwrt/immortalwrt/branches/master/target/linux/generic/hack-5.10 target/linux/generic/hack-5.10
 rm -rf package/network/services/ppp package/libs/libnfnetlink
 svn co https://github.com/openwrt/openwrt/trunk/package/network/services/ppp package/network/services/ppp
 svn co https://github.com/openwrt/openwrt/trunk/package/libs/libnfnetlink package/libs/libnfnetlink
 rm -rf package/network/services/dnsmasq
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/network/services/dnsmasq package/network/services/dnsmasq
 sed -i "s/'class': 'table'/'class': 'table memory'/g" package/*/*/luci-mod-status/htdocs/luci-static/resources/view/status/include/20_memory.js
+sed -i 's/$(TARGET_DIR)) install/$(TARGET_DIR)) install --force-overwrite/' package/Makefile
 sed -i 's/+acme\( \|$\)/+acme +acme-dnsapi\1/g' package/*/*/luci-app-acme/Makefile
 sed -i '$a /etc/sysupgrade.conf' package/base-files/files/lib/upgrade/keep.d/base-files-essential
 sed -i '$a /etc/amule' package/base-files/files/lib/upgrade/keep.d/base-files-essential
@@ -43,7 +46,7 @@ sed -i 's/PKG_BUILD_DIR:=/PKG_BUILD_DIR?=/g' feeds/luci/luci.mk
 sed -i 's?admin/status/channel_analysis??' package/feeds/luci/luci-mod-status/root/usr/share/luci/menu.d/luci-mod-status.json
 sed -i '/killall -HUP/d' feeds/luci/luci.mk
 find package target -name inittab | xargs -i sed -i "s/askfirst/respawn/g" {}
-for ipk in $(find package/feeds/custom/* -maxdepth 0); do	
+for ipk in $(find package/feeds/custom/* -maxdepth 0); do
 	if [[ ! -d "$ipk/patches" && ! "$(grep "codeload.github.com" $ipk/Makefile)" ]]; then
 		find $ipk/ -maxdepth 1 ! -path *tcping* -name "Makefile" \
 		| xargs -i sed -i "s/PKG_SOURCE_VERSION:=[0-9a-z]\{15,\}/PKG_SOURCE_VERSION:=HEAD/g" {}
@@ -63,7 +66,7 @@ if [ -f sdk.tar.xz ]; then
 	tar -xJf sdk.tar.xz -C sdk
 	cp -rf sdk/*/staging_dir/* ./staging_dir/
 	rm -rf sdk.tar.xz sdk
-	sed -i '/\(tools\|toolchain\)\/Makefile/d' Makefile
+	#sed -i '/\(tools\|toolchain\)\/Makefile/d' Makefile
 	if [ -f /usr/bin/python ]; then
 		ln -sf /usr/bin/python staging_dir/host/bin/python
 	else

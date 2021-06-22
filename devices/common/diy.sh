@@ -5,10 +5,11 @@ rm -Rf feeds/packages/net/{smartdns,mwan3,miniupnpd,aria2,nft-qos,https-dns-prox
 rm -Rf feeds/packages/utils/cgroupfs-mount
 ./scripts/feeds update luci packages custom
 ./scripts/feeds install -a
-sed -i 's/Os/O2/g' include/target.mk
-rm -rf package/{base-files,network}
-svn co https://github.com/openwrt/openwrt/branches/openwrt-21.02/package/base-files package/base-files
-svn co https://github.com/openwrt/openwrt/branches/openwrt-21.02/package/network package/network
+sed -i 's/Os/O2/g' include/target.mk include/kernel-version.mk
+rm -rf target/linux package/kernel include/kernel-version.mk
+svn co https://github.com/openwrt/openwrt/trunk/target/linux target/linux
+svn co https://github.com/openwrt/openwrt/trunk/package/kernel package/kernel
+wget -O include/kernel-version.mk https://raw.githubusercontent.com/openwrt/openwrt/master/include/kernel-version.mk
 find package/*/ -maxdepth 1 -name ".svn" | xargs -i rm -rf {}
 rm -Rf tools/upx && svn co https://github.com/coolsnowwolf/lede/trunk/tools/upx tools/upx
 rm -Rf tools/ucl && svn co https://github.com/coolsnowwolf/lede/trunk/tools/ucl tools/ucl

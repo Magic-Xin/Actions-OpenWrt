@@ -4,14 +4,13 @@ rm -Rf feeds/custom/diy
 rm -Rf feeds/packages/net/{smartdns,mwan3,miniupnpd,aria2,nft-qos,https-dns-proxy,shadowsocks-libev,frp,openvpn} feeds/luci/applications/luci-app-{dockerman,nft-qos,smartdns,frpc,frps,https-dns-proxy}
 rm -Rf feeds/packages/utils/cgroupfs-mount
 rm -Rf feeds/packages/devel/ninja
-git clone https://github.com/openwrt/packages/trunk/devel/ninja feeds/packages/devel/ninja
+svn co https://github.com/openwrt/packages/trunk/devel/ninja feeds/packages/devel/ninja
 ./scripts/feeds update luci packages custom
 ./scripts/feeds install -a
 sed -i 's/Os/O2/g' include/target.mk
-rm -rf package/{base-files,network,system}
+rm -rf package/{base-files,network}
 svn co https://github.com/openwrt/openwrt/branches/openwrt-21.02/package/base-files package/base-files
 svn co https://github.com/openwrt/openwrt/branches/openwrt-21.02/package/network package/network
-svn co https://github.com/openwrt/openwrt/branches/openwrt-21.02/package/system package/system
 find package/*/ -maxdepth 1 -name ".svn" | xargs -i rm -rf {}
 rm -Rf tools/upx && svn co https://github.com/coolsnowwolf/lede/trunk/tools/upx tools/upx
 rm -Rf tools/ucl && svn co https://github.com/coolsnowwolf/lede/trunk/tools/ucl tools/ucl

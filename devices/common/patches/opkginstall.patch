@@ -134,7 +134,7 @@
  			\) | sed -e 's,.*/,,;s/\.control /\t/' > ${INSTALLED_PACKAGES}
 +			sh /etc/rc.d/S99opkg sysupdate 2>/dev/null
 +	else
-+		rm -rf /etc/backup/user_installed.opkg
++		rm -f /etc/backup/user_installed.opkg
  	fi
  
  	v "Saving config files..."

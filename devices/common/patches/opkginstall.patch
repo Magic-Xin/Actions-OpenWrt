@@ -153,12 +153,14 @@
 
 --- a/package/base-files/files/sbin/sysupgrade
 +++ b/package/base-files/files/sbin/sysupgrade
-@@ -249,6 +249,8 @@ do_save_conffiles() {
- 			\( -exec test -f /overlay/upper/{} \; -exec echo {} overlay \; \) -o \
- 			\( -exec echo {} unknown \; \) \
- 			\) | sed -e 's,.*/,,;s/\.control /\t/' > ${INSTALLED_PACKAGES}
-+	else
+@@ -265,6 +265,10 @@ do_save_conffiles() {
+ 		rm -rf "$RAMFS"
+ 	}
+ 	rm -f "$CONFFILES"
++
++	if [ "$SAVE_INSTALLED_PKGS" -eq 1 ]; then
 +		rm -f /etc/backup/user_installed.opkg
- 	fi
++	fi
+ }
  
- 	v "Saving config files..."
+ if [ $CONF_BACKUP_LIST -eq 1 ]; then

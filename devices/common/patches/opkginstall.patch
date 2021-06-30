@@ -153,14 +153,11 @@
 
 --- a/package/base-files/files/sbin/sysupgrade
 +++ b/package/base-files/files/sbin/sysupgrade
-@@ -265,6 +265,10 @@ do_save_conffiles() {
- 		rm -rf "$RAMFS"
- 	}
- 	rm -f "$CONFFILES"
-+
-+	if [ "$SAVE_INSTALLED_PKGS" -eq 1 ]; then
-+		rm -f /etc/backup/user_installed.opkg
-+	fi
- }
+@@ -232,6 +232,7 @@ do_save_conffiles() {
  
- if [ $CONF_BACKUP_LIST -eq 1 ]; then
+ 	if [ "$SAVE_INSTALLED_PKGS" -eq 1 ]; then
+ 		echo "${INSTALLED_PACKAGES}" >> "$CONFFILES"
++		echo "/etc/backup/user_installed.opkg" >> "$CONFFILES"
+ 		mkdir -p "$ETCBACKUP_DIR"
+ 		# Avoid touching filesystem on each backup
+ 		RAMFS="$(mktemp -d -t sysupgrade.XXXXXX)"

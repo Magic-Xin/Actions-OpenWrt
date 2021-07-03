@@ -25,7 +25,7 @@
  				code=$?
  				stdout=$(cat /tmp/opkg.out)
  				stderr=$(cat /tmp/opkg.err)
-@@ -47,6 +60,17 @@ case "$action" in
+@@ -47,6 +56,17 @@ case "$action" in
  			[ -n "$stdout" ] && json_add_string stdout "$stdout"
  			[ -n "$stderr" ] && json_add_string stderr "$stderr"
  			json_dump

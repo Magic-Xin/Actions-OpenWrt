@@ -4,7 +4,6 @@ rm -rf ./package/boot/uboot-rockchip target/linux/{rockchip,generic}
 svn export https://github.com/immortalwrt/immortalwrt/branches/master/package/boot/uboot-rockchip package/boot/uboot-rockchip
 svn export https://github.com/immortalwrt/immortalwrt/branches/master/target/linux/rockchip target/linux/rockchip
 svn export https://github.com/immortalwrt/immortalwrt/branches/master/target/linux/generic target/linux/generic
-svn export https://github.com/immortalwrt/immortalwrt/branches/master/package/boot/arm-trusted-firmware-rk3328 package/boot/arm-trusted-firmware-rk3328
 
 rm -rf include/kernel-version.mk
 wget -O include/kernel-version.mk https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/include/kernel-version.mk

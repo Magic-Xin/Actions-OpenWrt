@@ -4,7 +4,7 @@ find target/linux/rockchip/* -maxdepth 0 ! -path '*/patches-5.10' -exec rm -Rf '
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/target/linux/rockchip target/linux/rockchip
 rm -Rf target/linux/rockchip/.svn
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/target/linux/rockchip/patches-5.10 target/linux/rockchip/patches-5.10
-rm -Rf target/linux/rockchip/patches-5.10/{006-*-etherne,007-*-name,008-*-OF,009-*-documentation}.patch
+rm -Rf target/linux/rockchip/patches-5.10/{006-*-NanoPi-R,007-*-R4S}.patch
 
 rm -rf ./package/kernel/linux/modules/video.mk
 wget -P package/kernel/linux/modules/ https://github.com/immortalwrt/immortalwrt/raw/master/package/kernel/linux/modules/video.mk

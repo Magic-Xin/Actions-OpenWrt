@@ -1,5 +1,7 @@
 #!/bin/bash
 
+svn export https://github.com/immortalwrt/immortalwrt/branches/master/package/boot/uboot-rockchip package/boot/uboot-rockchip
+
 find target/linux/rockchip/* -maxdepth 0 ! -path '*/patches-5.10' -exec rm -Rf '{}' \;
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/target/linux/rockchip target/linux/rockchip
 rm -Rf target/linux/rockchip/.svn
